@@ -1,5 +1,10 @@
 # Emacs Starter Kit
 
+> I forked the emacs-starter-kit in order to add my personalizations,
+> so that I could use this on all my computers at home. My
+> personalizations are in the vinod.el file, with local libraries in
+> the vinod directory.
+
 The Starter Kit should provide a saner set of defaults than you get
 normally with Emacs. It was originally intended for beginners, but it
 should provide a reasonable working environment for anyone using Emacs
