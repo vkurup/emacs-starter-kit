@@ -30,23 +30,32 @@
 
 (setq user-mail-address "vinod@kurup.com")
 
-(defun gtd ()
-  "Open my todo list"
-  (interactive)
-  (find-file "~/Dropbox/org/gtd.org"))
-
 ; remember mode
 (org-remember-insinuate)
 (setq org-directory "~/Dropbox/org/")
-(setq org-default-notes-file (concat org-directory "/notes.org"))
+(setq org-default-notes-file (concat org-directory "gtd.org"))
+(setq org-log-done t)
+(setq org-agenda-show-log t)
+(setq org-return-follows-link t)
 (define-key global-map [f8] 'remember)
 (define-key global-map [f9] 'remember-region)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(defun gtd ()
+  "Open my todo list"
+  (interactive)
+  (find-file (concat org-directory "gtd.org")))
 
 (setq org-remember-templates
-      '(("Todo" ?t "* TODO %?\n  %i\n  %a" "~/org/gtd.org" "Inbox")
+      '(("Tasks" ?t "* TODO %?\n  %i\n Added: %U\n %a" org-default-notes-file "Inbox")
         ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "Entries")
         ("MorningPages" ?m "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "MorningPages")
         ("Idea" ?i "* %^{Title}\n  %i\n  %a" "~/org/journal.org" "New Ideas")))
+
+(setq org-agenda-custom-commands
+      '(("p" tags "PROJECT-MAYBE-DONE" nil)
+        ("m" tags "PROJECT&MAYBE" nil)
+       ))
 
 ;; Delete old backup versions silently
 (setq delete-old-versions t)
