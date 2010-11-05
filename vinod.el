@@ -17,10 +17,10 @@
 (defun vk-copy-ledger-entry-to-bottom ()
   "Copy the current transaction to the bottom of the ledger"
   (interactive)
-  (re-search-backward "^20")
+  (re-search-backward "^[12][09]")
   (let ((beg (point)))
     (forward-char)
-    (re-search-forward "^20")
+    (re-search-forward "^[12][09]")
     (beginning-of-line)
     (copy-region-as-kill beg (point))
     (goto-char (point-max))
@@ -131,3 +131,16 @@
 (fset 'vk-process-movie-list
    [?\C-a down ?\C-s ?2 ?0 ?1 ?0 left left left left ?\C-  ?\C-s ?  ?\C-s left ?\M-w right ?\C-y ?- left left left backspace ?- left left left backspace ?- right right right right right right ?\C-  ?\C-e ?\C-w ?. ?a ?v ?i left left left left ?\C-x ?o ?m ?p ?l ?a ?y ?e ?r ?  ?\C-y return ?\C-x ?o])
 
+(defun vk-blogpost (title)
+  "Create a new blog post."
+  (interactive "sPost Title: ")
+  (let ((slug (replace-regexp-in-string " " "-" (downcase title))))
+    (find-file (concat "~/web/kurup.org/_posts/"
+                       (format-time-string "%Y-%m-%d")
+                       "-" slug ".markdown"))
+    (insert "---\n")
+    (insert "date: " (format-time-string "%Y/%m/%d %H:%M:%S") "\n")
+    (insert "layout: post\n")
+    (insert "title: " title "\n")
+    (insert "categories: \n")
+    (insert "---\n\n")))
