@@ -40,6 +40,10 @@
 (define-key global-map [f8] 'remember)
 (define-key global-map [f9] 'remember-region)
 (global-set-key "\C-cb" 'org-iswitchb)
+(setq org-mobile-directory "~/Dropbox/org/m")
+(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
+(setq org-mobile-agendas '("a"))
+(setq org-startup-indented t)
 
 (defun gtd ()
   "Open my todo list"
