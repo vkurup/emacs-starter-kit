@@ -139,12 +139,12 @@
   "Create a new blog post."
   (interactive "sPost Title: ")
   (let ((slug (replace-regexp-in-string " " "-" (downcase title))))
-    (find-file (concat "~/web/kurup.org/_posts/"
+    (find-file (concat "~/web/kurup.org/blog/_posts/"
                        (format-time-string "%Y-%m-%d")
                        "-" slug ".markdown"))
     (insert "---\n")
     (insert "date: " (format-time-string "%Y/%m/%d %H:%M:%S") "\n")
     (insert "layout: post\n")
     (insert "title: " title "\n")
-    (insert "categories: \n")
+    (insert "tags: \n")
     (insert "---\n\n")))
