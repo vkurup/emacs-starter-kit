@@ -138,7 +138,7 @@
 (defun vk-blogpost (title)
   "Create a new blog post."
   (interactive "sPost Title: ")
-  (let ((slug (replace-regexp-in-string " " "-" (downcase title))))
+  (let ((slug (replace-regexp-in-string "[\\. ]+" "-" (downcase title))))
     (find-file (concat "~/web/kurup.org/blog/_posts/"
                        (format-time-string "%Y-%m-%d")
                        "-" slug ".markdown"))
