@@ -20,6 +20,12 @@
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 
+;; Org-mode bug on Ubuntu: Cannot exit from Emacs with msg
+;; move-file-to-trash: Non-regular file: Is a directory, /tmp/babel-XXXXXXX
+(custom-set-variables '(temporary-file-directory (concat dotfiles-dir "tmp")))
+(unless (file-exists-p temporary-file-directory)
+  (make-directory temporary-file-directory))
+
 ;; Load up ELPA, the package manager
 
 (add-to-list 'load-path dotfiles-dir)

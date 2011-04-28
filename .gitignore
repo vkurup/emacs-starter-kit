@@ -21,3 +21,5 @@ session*
 tramp
 \#*
 history
+tmp
+/.org-id-locations
