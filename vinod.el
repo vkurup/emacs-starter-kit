@@ -30,36 +30,29 @@
 
 (setq user-mail-address "vinod@kurup.com")
 
-; remember mode
-(org-remember-insinuate)
 (setq org-directory "~/Dropbox/org/")
-(setq org-default-notes-file (concat org-directory "gtd.org"))
+(setq org-default-notes-file (concat org-directory "todo.org"))
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
-(define-key global-map [f8] 'remember)
-(define-key global-map [f9] 'remember-region)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq org-mobile-directory "~/Dropbox/org/m")
-(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
-(setq org-mobile-agendas '("a"))
+;(define-key global-map [f8] 'remember)
+;(define-key global-map [f9] 'remember-region)
+;(setq org-mobile-directory "~/Dropbox/org/m")
+;(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
+;(setq org-mobile-agendas '("a"))
 (setq org-startup-indented t)
 
 (defun gtd ()
   "Open my todo list"
   (interactive)
-  (find-file (concat org-directory "gtd.org")))
+  (find-file (concat org-directory "todo.org")))
 
-(setq org-remember-templates
-      '(("Tasks" ?t "* TODO %?\n  %i\n Added: %U\n %a" org-default-notes-file "Inbox")
-        ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "Entries")
-        ("MorningPages" ?m "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "MorningPages")
-        ("Idea" ?i "* %^{Title}\n  %i\n  %a" "~/org/journal.org" "New Ideas")))
-
-(setq org-agenda-custom-commands
-      '(("p" tags "PROJECT-MAYBE-DONE" nil)
-        ("m" tags "PROJECT&MAYBE" nil)
-       ))
+;(setq org-remember-templates
+;'(("Tasks" ?t "* TODO %?\n  %i\n Added: %U\n %a" org-default-notes-file "Inbox")
+;  ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "Entries")
+;  ("MorningPages" ?m "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "MorningPages")
+;  ("Idea" ?i "* %^{Title}\n  %i\n  %a" "~/org/journal.org" "New Ideas")
+;))
 
 ;; Delete old backup versions silently
 (setq delete-old-versions t)
@@ -88,9 +81,9 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(android-mode-sdk-dir "~/src/android-sdk-linux_86")
- '(inferior-lisp-program "lein repl")
- '(org-agenda-files (quote ("~/Dropbox/org/gtd.org"))))
+ '(android-mode-sdk-dir "~/src/android-sdk-linux_x86")
+ '(org-agenda-files (quote ("~/Dropbox/org/todo.org")))
+ '(inferior-lisp-program "lein repl"))
 
 ;; open files as root
 ;; from http://www.emacswiki.org/cgi-bin/wiki/TrampMode
