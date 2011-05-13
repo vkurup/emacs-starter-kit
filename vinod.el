@@ -35,7 +35,7 @@
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
-;(define-key global-map [f8] 'remember)
+(define-key global-map [f8] 'org-capture)
 ;(define-key global-map [f9] 'remember-region)
 ;(setq org-mobile-directory "~/Dropbox/org/m")
 ;(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
