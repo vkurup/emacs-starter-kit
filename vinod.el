@@ -41,6 +41,10 @@
 ;(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
 ;(setq org-mobile-agendas '("a"))
 (setq org-startup-indented t)
+(setq org-agenda-start-on-weekday nil) ; show agenda starting today
+;(setq org-special-ctrl-a/e t)
+(setq org-use-speed-commands t)
+(setq org-archive-location (concat org-directory "archive/%s_archive::"))
 
 (defun gtd ()
   "Open my todo list"
@@ -128,10 +132,16 @@
 (fset 'vk-process-movie-list
    [?\C-a down ?\C-s ?2 ?0 ?1 ?1 left left left left ?\C-  ?\C-s ?  ?\C-s left ?\M-w right ?\C-y ?- left left left backspace ?- left left left backspace ?- right right right right right right ?\C-  ?\C-e ?\C-w ?. ?a ?v ?i left left left left ?\C-x ?o ?m ?p ?l ?a ?y ?e ?r ?  ?\C-y return ?\C-x ?o])
 
+(defun vk-slugify (title)
+  "Convert a normal Title string to something that can be used in a blog slug."
+  (replace-regexp-in-string "[\\. ]+" "-"
+                            (replace-regexp-in-string "'" ""
+                                                      (downcase title))))
+
 (defun vk-blogpost (title)
   "Create a new blog post."
   (interactive "sPost Title: ")
-  (let ((slug (replace-regexp-in-string "[\\. ]+" "-" (downcase title))))
+  (let ((slug (vk-slugify title)))
     (find-file (concat "~/web/kurup.org/blog/_posts/"
                        (format-time-string "%Y-%m-%d")
                        "-" slug ".markdown"))
