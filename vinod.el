@@ -33,11 +33,11 @@
 (setq org-directory "~/Dropbox/org/")
 (setq org-default-notes-file (concat org-directory "todo.org"))
 (define-key global-map "\C-cc" 'org-capture)
+(define-key global-map [f8] (lambda () (interactive) (org-capture nil "t")))
+;(define-key global-map [f9] 'remember-region)
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
-;(define-key global-map [f8] 'org-capture)
-;(define-key global-map [f9] 'remember-region)
 (setq org-startup-indented t)
 (setq org-agenda-start-on-weekday nil) ; show agenda starting today
 (setq org-use-speed-commands t)
