@@ -127,3 +127,8 @@
     (insert "title: " title "\n")
     (insert "tags: \n")
     (insert "---\n\n")))
+
+;;; org-velocity usage:
+(require 'org-velocity)
+(setq org-velocity-bucket (expand-file-name "bucket.org" org-directory))
+(global-set-key (kbd "C-c v") 'org-velocity-read)

@@ -7,9 +7,15 @@
  '(inferior-lisp-program "lein repl")
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/Dropbox/org/todo.org")))
- '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-velocity)))
  '(org-capture-templates (quote (("t" "Create Task" checkitem (file+headline "~/Dropbox/org/autofocus.org" "Last") ""))))
+ '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-velocity)))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
+ '(org-velocity-allow-regexps t)
+ '(org-velocity-always-use-bucket t)
+ '(org-velocity-bucket "/home/vinod/Dropbox/org/bucket.org")
+ '(org-velocity-create-method (quote capture))
+ '(org-velocity-max-depth 2)
+ '(org-velocity-search-method (quote phrase))
  '(temporary-file-directory (concat dotfiles-dir "tmp")))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
