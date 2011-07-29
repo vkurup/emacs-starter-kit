@@ -36,28 +36,17 @@
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
-(define-key global-map [f8] 'org-capture)
+;(define-key global-map [f8] 'org-capture)
 ;(define-key global-map [f9] 'remember-region)
-;(setq org-mobile-directory "~/Dropbox/org/m")
-;(setq org-mobile-inbox-for-pull "~/Dropbox/org/flagged.org")
-;(setq org-mobile-agendas '("a"))
 (setq org-startup-indented t)
 (setq org-agenda-start-on-weekday nil) ; show agenda starting today
-;(setq org-special-ctrl-a/e t)
 (setq org-use-speed-commands t)
 (setq org-archive-location (concat org-directory "archive/%s_archive::"))
 
 (defun gtd ()
   "Open my todo list"
   (interactive)
-  (find-file (concat org-directory "todo.org")))
-
-;(setq org-remember-templates
-;'(("Tasks" ?t "* TODO %?\n  %i\n Added: %U\n %a" org-default-notes-file "Inbox")
-;  ("Journal" ?j "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "Entries")
-;  ("MorningPages" ?m "* %U %?\n\n  %i\n  %a" "~/org/journal.org" "MorningPages")
-;  ("Idea" ?i "* %^{Title}\n  %i\n  %a" "~/org/journal.org" "New Ideas")
-;))
+  (find-file (concat org-directory "autofocus.org")))
 
 ;; Delete old backup versions silently
 (setq delete-old-versions t)
@@ -69,26 +58,12 @@
 (setq calendar-longitude -79.0999)
 (setq calendar-location-name "Chapel Hill, NC")
 
-; maximize on startup
-(setq initial-frame-alist
-      `((left . 0) (top . 0)
-        (width . 80) (height . 65)))
-
 (color-theme-zenburn)
 
 ;; move to trash instead of Delete
 (setq delete-by-moving-to-trash t)
 
 (require 'android-mode)
-
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(android-mode-sdk-dir "~/src/android-sdk-linux_x86")
- '(org-agenda-files (quote ("~/Dropbox/org/todo.org")))
- '(inferior-lisp-program "lein repl"))
 
 ;; open files as root
 ;; from http://www.emacswiki.org/cgi-bin/wiki/TrampMode
