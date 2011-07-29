@@ -32,6 +32,7 @@
 
 (setq org-directory "~/Dropbox/org/")
 (setq org-default-notes-file (concat org-directory "todo.org"))
+(define-key global-map "\C-cc" 'org-capture)
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
