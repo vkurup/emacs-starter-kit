@@ -58,7 +58,11 @@
 (setq calendar-longitude -79.0999)
 (setq calendar-location-name "Chapel Hill, NC")
 
-(color-theme-zenburn)
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
+
+
 
 ;; move to trash instead of Delete
 (setq delete-by-moving-to-trash t)
