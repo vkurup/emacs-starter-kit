@@ -7,7 +7,7 @@
  '(inferior-lisp-program "lein repl")
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/Dropbox/org/autofocus.org" "~/Dropbox/org/todo.org")))
- '(org-capture-templates (quote (("t" "Create Task" entry (file+headline "~/Dropbox/org/autofocus.org" "Last") "* TODO %?"))))
+ '(org-capture-templates (quote (("j" "Journal Entry" entry (file "~/org/notes.org") "* %T %?") ("t" "Create Task" entry (file+headline "~/Dropbox/org/autofocus.org" "Last") "* TODO %?"))))
  '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-velocity)))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-velocity-allow-regexps t)
