@@ -122,14 +122,15 @@
   "Create a new blog post."
   (interactive "sPost Title: ")
   (let ((slug (vk-slugify title)))
-    (find-file (concat "~/web/kurup.org/blog/_posts/"
+    (find-file (concat "~/web/kurup.org/source/_posts/"
                        (format-time-string "%Y-%m-%d")
                        "-" slug ".markdown"))
     (insert "---\n")
-    (insert "date: " (format-time-string "%Y/%m/%d %H:%M:%S") "\n")
     (insert "layout: post\n")
+    (insert "date: " (format-time-string "%Y/%m/%d %H:%M:%S") "\n")
     (insert "title: " title "\n")
-    (insert "tags: \n")
+    (insert "comments: true\n")
+    (insert "categories: \n")
     (insert "---\n\n")))
 
 ;;; org-velocity usage:
