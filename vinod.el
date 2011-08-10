@@ -137,3 +137,7 @@
 (require 'org-velocity)
 (setq org-velocity-bucket (expand-file-name "bucket.org" org-directory))
 (global-set-key (kbd "C-c v") 'org-velocity-read)
+
+;; edit server for edit-in-emacs chrome extension
+(require 'edit-server)
+(edit-server-start)
