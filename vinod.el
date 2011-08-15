@@ -141,3 +141,15 @@
 ;; edit server for edit-in-emacs chrome extension
 (require 'edit-server)
 (edit-server-start)
+
+;; auto-complete
+;; http://www.maybetechnology.com/2011/07/auto-complete-in-clojure.html
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(setq ac-delay 0.5) ;; eclipse uses 500ms
+
+;; configure auto complete to work in slime
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
