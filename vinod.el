@@ -153,3 +153,16 @@
 (require 'ac-slime)
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
+;; Missing from ruby-mode.el, see https://groups.google.com/group/emacs-on-rails/msg/565fba8263233c28
+(defun ruby-insert-end () 
+  "Insert \"end\" at point and reindent current line." 
+  (interactive) 
+  (insert "end") 
+  (ruby-indent-line t) 
+  (end-of-line)) 
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (require 'ruby-electric)
+            (ruby-electric-mode t)))
