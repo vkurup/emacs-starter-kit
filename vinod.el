@@ -30,8 +30,10 @@
 
 (setq user-mail-address "vinod@kurup.com")
 
+(require 'org-install)
 (setq org-directory "~/Dropbox/org/")
 (setq org-default-notes-file (concat org-directory "todo.org"))
+(define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map [f8] (lambda () (interactive) (org-capture nil "t")))
 ;(define-key global-map [f9] 'remember-region)
@@ -50,6 +52,8 @@
 
 ;; Delete old backup versions silently
 (setq delete-old-versions t)
+;; move to trash instead of Delete
+(setq delete-by-moving-to-trash t)
 
 (ido-everywhere t)
 
@@ -59,13 +63,7 @@
 (setq calendar-location-name "Chapel Hill, NC")
 
 (require 'color-theme)
-(require 'color-theme-solarized)
-(color-theme-solarized-dark)
-
-
-
-;; move to trash instead of Delete
-(setq delete-by-moving-to-trash t)
+(color-theme-zenburn)
 
 (require 'android-mode)
 
@@ -141,6 +139,11 @@
 ;; edit server for edit-in-emacs chrome extension
 (require 'edit-server)
 (edit-server-start)
+
+; twitter modee
+; http://www.emacswiki.org/emacs/TwitteringMode
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 ;; auto-complete
 ;; http://www.maybetechnology.com/2011/07/auto-complete-in-clojure.html
