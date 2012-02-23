@@ -4,12 +4,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(android-mode-sdk-dir "~/src/android-sdk-linux_x86")
- '(browse-url-browser-function (quote browse-url-generic))
+ '(browse-url-browser-function (quote browse-url-chromium))
  '(browse-url-generic-program "chromium-browser")
  '(inferior-lisp-program "lein repl")
+ '(nxml-bind-meta-tab-to-complete-flag t)
  '(nxml-slash-auto-complete-flag t)
  '(org-agenda-files (quote ("~/org/gtd.org")))
- '(org-capture-templates (quote (("j" "Journal Entry" entry (file "~/org/notes.org") "* %T %?") ("t" "Create Task" entry (file+headline "~/Dropbox/org/gtd.org" "Tasks") "* TODO %?"))))
+ '(org-capture-templates (quote (("j" "Journal Entry" entry (file "~/org/notes.org") "* %T %?") ("t" "Create Task" entry (file+headline "~/Dropbox/org/gtd.org" "Inbox") "* TODO %?"))))
  '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-velocity)))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(org-velocity-allow-regexps t)
@@ -18,7 +19,8 @@
  '(org-velocity-create-method (quote capture))
  '(org-velocity-max-depth 2)
  '(org-velocity-search-method (quote phrase))
- '(temporary-file-directory (concat dotfiles-dir "tmp")))
+ '(temporary-file-directory (concat dotfiles-dir "tmp"))
+ '(weblogger-config-alist (quote (("default" "http://www.blogger.com/api" "vvkurup@gmail.com" "" "6482582243742832795")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

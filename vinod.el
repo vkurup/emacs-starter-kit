@@ -48,7 +48,7 @@
 (defun gtd ()
   "Open my todo list"
   (interactive)
-  (find-file (concat org-directory "autofocus.org")))
+  (find-file (concat org-directory "gtd.org")))
 
 ;; Delete old backup versions silently
 (setq delete-old-versions t)
@@ -147,15 +147,15 @@
 
 ;; auto-complete
 ;; http://www.maybetechnology.com/2011/07/auto-complete-in-clojure.html
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-(setq ac-delay 0.5) ;; eclipse uses 500ms
+;(require 'auto-complete-config)
+;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;(ac-config-default)
+;(setq ac-delay 0.5) ;; eclipse uses 500ms
 
 ;; configure auto complete to work in slime
-(require 'ac-slime)
-(add-hook 'slime-mode-hook 'set-up-slime-ac)
-(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+;(require 'ac-slime)
+;(add-hook 'slime-mode-hook 'set-up-slime-ac)
+;(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 ;; Missing from ruby-mode.el, see https://groups.google.com/group/emacs-on-rails/msg/565fba8263233c28
 (defun ruby-insert-end () 
