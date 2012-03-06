@@ -1,85 +1,187 @@
-;;; init.el --- Where all the magic begins
-;;
-;; Part of the Emacs Starter Kit
-;;
-;; This is the first thing to get loaded.
-;;
-;; "Emacs outshines all other editing software in approximately the
-;; same way that the noonday sun does the stars. It is not just bigger
-;; and brighter; it simply makes everything else vanish."
-;; -Neal Stephenson, "In the Beginning was the Command Line"
-
-;; Turn off mouse interface early in startup to avoid momentary display
-;; You really don't need these; trust me.
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;; Load path etc.
-
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
-
-;; Org-mode bug on Ubuntu: Cannot exit from Emacs with msg
-;; move-file-to-trash: Non-regular file: Is a directory, /tmp/babel-XXXXXXX
-(custom-set-variables '(temporary-file-directory (concat dotfiles-dir "tmp")))
-(unless (file-exists-p temporary-file-directory)
-  (make-directory temporary-file-directory))
-
-;; Load up ELPA, the package manager
-
 (add-to-list 'load-path dotfiles-dir)
-
-(add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
-
-(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
-(setq custom-file (concat dotfiles-dir "custom.el"))
 
 (require 'package)
 (dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
                   ("elpa" . "http://tromey.com/elpa/")))
   (add-to-list 'package-archives source t))
 (package-initialize)
-(require 'starter-kit-elpa)
 
-;; These should be loaded on startup rather than autoloaded on demand
-;; since they are likely to be used in every session
+(when (not package-archive-contents)
+  (package-refresh-contents))
 
-(require 'cl)
-(require 'saveplace)
-(require 'ffap)
-(require 'uniquify)
-(require 'ansi-color)
-(require 'recentf)
+;; Add in your own as you wish:
+(defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings
+				  starter-kit-js starter-kit-ruby ruby-electric ruby-end
+                                  zenburn-theme android-mode python-mode
+                                  yasnippet-bundle clojure-mode)
+  "A list of packages to ensure are installed at launch.")
 
-;; backport some functionality to Emacs 22 if needed
-(require 'dominating-file)
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
 
-;; Load up starter kit customizations
 
-(require 'starter-kit-defuns)
-(require 'starter-kit-bindings)
-(require 'starter-kit-misc)
-(require 'starter-kit-registers)
-(require 'starter-kit-eshell)
-(require 'starter-kit-lisp)
-(require 'starter-kit-perl)
-(require 'starter-kit-ruby)
-(require 'starter-kit-js)
 
-(regen-autoloads)
-(load custom-file 'noerror)
+;; personal configuration
 
-;; You can keep system- or user-specific customizations here
-(setq system-specific-config (concat dotfiles-dir system-name ".el")
-      user-specific-config (concat dotfiles-dir user-login-name ".el")
-      user-specific-dir (concat dotfiles-dir user-login-name))
-(add-to-list 'load-path user-specific-dir)
+(column-number-mode t)                  ; display the column number on modeline
+(setq-default kill-whole-line t)        ; ctrl-k kills whole line if at col 0
+(menu-bar-mode)
+                                        ; ledger
+                                        ; make cleared items green, uncleared pink
+(add-hook 'ledger-mode-hook 
+          (lambda ()
+            (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[        ]+[^\\*]" (quote hi-pink))
+            (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[        ]+\\*" (quote hi-green))))
 
-(if (file-exists-p system-specific-config) (load system-specific-config))
-(if (file-exists-p user-specific-config) (load user-specific-config))
-(if (file-exists-p user-specific-dir)
-  (mapc #'load (directory-files user-specific-dir nil ".*el$")))
+(defun ledger ()
+  "Open my ledger file and go to today"
+  (interactive)
+  (find-file "~/Dropbox/ledger.dat")
+  (ledger-find-slot (current-time)))
 
-;;; init.el ends here
+(defun vk-copy-ledger-entry-to-bottom ()
+  "Copy the current transaction to the bottom of the ledger"
+  (interactive)
+  (re-search-backward "^[12][09]")
+  (let ((beg (point)))
+    (forward-char)
+    (re-search-forward "^[12][09]")
+    (beginning-of-line)
+    (copy-region-as-kill beg (point))
+    (goto-char (point-max))
+    (yank '(non nil list))
+    (forward-word)
+    (forward-char)))
+
+(setq user-mail-address "vinod@kurup.com")
+
+(require 'org-install)
+(setq org-directory "~/Dropbox/org/")
+(setq org-default-notes-file (concat org-directory "todo.org"))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map [f8] (lambda () (interactive) (org-capture nil "t")))
+                                        ;(define-key global-map [f9] 'remember-region)
+(setq org-log-done t)
+(setq org-agenda-show-log t)
+(setq org-return-follows-link t)
+(setq org-startup-indented t)
+(setq org-agenda-start-on-weekday nil) ; show agenda starting today
+(setq org-use-speed-commands t)
+(setq org-archive-location (concat org-directory "archive/%s_archive::"))
+
+(defun gtd ()
+  "Open my todo list"
+  (interactive)
+  (find-file (concat org-directory "gtd.org")))
+
+;; Delete old backup versions silently
+(setq delete-old-versions t)
+;; move to trash instead of Delete
+(setq delete-by-moving-to-trash t)
+
+;; set calendar's location (for sunrise sunset)
+(setq calendar-latitude 35.9162)
+(setq calendar-longitude -79.0999)
+(setq calendar-location-name "Chapel Hill, NC")
+
+(load-theme 'zenburn t)
+
+(global-set-key [(control x) (control r)] 'esk-sudo-edit)
+
+(fset 'vk-process-movie-list
+      [?\C-a down ?\C-s ?2 ?0 ?1 ?1 left left left left ?\C-  ?\C-s ?  ?\C-s left ?\M-w right ?\C-y ?- left left left backspace ?- left left left backspace ?- right right right right right right ?\C-  ?\C-e ?\C-w ?. ?a ?v ?i left left left left ?\C-x ?o ?m ?p ?l ?a ?y ?e ?r ?  ?\C-y return ?\C-x ?o])
+
+(defun vk-slugify (title)
+  "Convert a normal Title string to something that can be used in a blog slug."
+  (replace-regexp-in-string "[\\. ]+" "-"
+                            (replace-regexp-in-string "'" ""
+                                                      (downcase title))))
+
+(defun vk-blogpost (title)
+  "Create a new blog post."
+  (interactive "sPost Title: ")
+  (let ((slug (vk-slugify title)))
+    (find-file (concat "~/web/kurup.org/source/_posts/"
+                       (format-time-string "%Y-%m-%d")
+                       "-" slug ".markdown"))
+    (insert "---\n")
+    (insert "layout: post\n")
+    (insert "date: " (format-time-string "%Y/%m/%d %H:%M:%S") "\n")
+    (insert "title: " title "\n")
+    (insert "comments: true\n")
+    (insert "categories: \n")
+    (insert "---\n\n")))
+
+;;; org-velocity usage:
+(require 'org-velocity)
+(setq org-velocity-bucket (expand-file-name "bucket.org" org-directory))
+(global-set-key (kbd "C-c v") 'org-velocity-read)
+
+;; edit server for edit-in-emacs chrome extension
+(require 'edit-server)
+(edit-server-start)
+
+                                        ; twitter modee
+                                        ; http://www.emacswiki.org/emacs/TwitteringMode
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
+
+;; auto-complete
+;; http://www.maybetechnology.com/2011/07/auto-complete-in-clojure.html
+                                        ;(require 'auto-complete-config)
+                                        ;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+                                        ;(ac-config-default)
+                                        ;(setq ac-delay 0.5) ;; eclipse uses 500ms
+
+;; configure auto complete to work in slime
+                                        ;(require 'ac-slime)
+                                        ;(add-hook 'slime-mode-hook 'set-up-slime-ac)
+                                        ;(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+
+;; Missing from ruby-mode.el, see https://groups.google.com/group/emacs-on-rails/msg/565fba8263233c28
+(defun ruby-insert-end () 
+  "Insert \"end\" at point and reindent current line." 
+  (interactive) 
+  (insert "end") 
+  (ruby-indent-line t) 
+  (end-of-line)) 
+
+(add-hook 'ruby-mode-hook
+          (lambda ()
+            (require 'ruby-electric)
+            (ruby-electric-mode t)))
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(android-mode-sdk-dir "~/src/android-sdk-linux_x86")
+ '(browse-url-browser-function (quote browse-url-chromium))
+ '(browse-url-generic-program "chromium-browser")
+ '(inferior-lisp-program "lein repl")
+ '(nxml-bind-meta-tab-to-complete-flag t)
+ '(nxml-slash-auto-complete-flag t)
+ '(org-agenda-files (quote ("~/org/gtd.org")))
+ '(org-capture-templates (quote (("j" "Journal Entry" entry (file "~/org/notes.org") "* %T %?") ("t" "Create Task" entry (file+headline "~/Dropbox/org/gtd.org" "Inbox") "* TODO %?"))))
+ '(org-modules (quote (org-bbdb org-bibtex org-docview org-gnus org-info org-jsinfo org-irc org-mew org-mhe org-rmail org-vm org-wl org-w3m org-velocity)))
+ '(org-refile-targets (quote ((org-agenda-files :level . 1))))
+ '(org-velocity-allow-regexps t)
+ '(org-velocity-always-use-bucket t)
+ '(org-velocity-bucket "/home/vinod/Dropbox/org/bucket.org")
+ '(org-velocity-create-method (quote capture))
+ '(org-velocity-max-depth 2)
+ '(org-velocity-search-method (quote phrase))
+ '(temporary-file-directory (concat user-emacs-directory "tmp"))
+ '(weblogger-config-alist (quote (("default" "http://www.blogger.com/api" "vvkurup@gmail.com" "" "6482582243742832795")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-hide ((default (:foreground "grey25")) (nil nil))))
