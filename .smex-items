@@ -1,0 +1,33 @@
+
+;; ----- smex-history -----
+(
+ gtd
+ esk-indent-buffer
+ package-list-packages
+ package-refresh-contents
+ esk-insert-date
+ esk-suck-it
+ load-theme
+)
+
+;; ----- smex-data -----
+(
+ (package-list-packages . 10)
+ (color-theme-xp . 1)
+ (color-theme-snow . 1)
+ (color-theme-arjen . 1)
+ (color-theme-billw . 1)
+ (color-theme-gnome . 1)
+ (color-theme-gray1 . 1)
+ (color-theme-lethe . 1)
+ (load-theme . 1)
+ (ledger . 1)
+ (esk-sudo-edit . 1)
+ (esk-suck-it . 1)
+ (esk-insert-date . 1)
+ (package-refresh-contents . 1)
+ (ruby-electric-brace . 1)
+ (ruby-electric-mode . 1)
+ (esk-indent-buffer . 1)
+ (gtd . 1)
+)
