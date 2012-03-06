@@ -156,6 +156,12 @@
             (require 'ruby-electric)
             (ruby-electric-mode t)))
 
+; autocomplete
+;(add-to-list 'load-path "~/.emacs.d/vinod/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/vinod/ac-dict")
+(ac-config-default)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
