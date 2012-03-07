@@ -2,6 +2,7 @@ backups/*
 auto-save-list
 *elc
 places
+elpa/
 url/cookies
 thumbs/*
 oddmuse/*
