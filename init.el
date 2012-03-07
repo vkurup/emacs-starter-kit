@@ -1,12 +1,6 @@
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
-(add-to-list 'load-path dotfiles-dir)
-(setq package-user-dir (concat dotfiles-dir "elpa"))
-
 (require 'package)
-(dolist (source '(("marmalade" . "http://marmalade-repo.org/packages/")
-                  ("elpa" . "http://tromey.com/elpa/")))
-  (add-to-list 'package-archives source t))
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (package-initialize)
 
 (when (not package-archive-contents)
@@ -14,24 +8,25 @@
 
 ;; Add in your own as you wish:
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings
-				  starter-kit-js starter-kit-ruby ruby-electric ruby-end
-                                  zenburn-theme android-mode python-mode
-                                  yasnippet-bundle clojure-mode)
+                                  starter-kit-js starter-kit-ruby zenburn-theme
+                                  yasnippet-bundle ac-slime)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
 
-
-
 ;; personal configuration
-
-(column-number-mode t)                  ; display the column number on modeline
+(setq user-mail-address "vinod@kurup.com")
+;; set calendar's location (for sunrise sunset)
+(setq calendar-latitude 35.9162)
+(setq calendar-longitude -79.0999)
+(setq calendar-location-name "Chapel Hill, NC")
 (setq-default kill-whole-line t)        ; ctrl-k kills whole line if at col 0
 (menu-bar-mode)
-                                        ; ledger
-                                        ; make cleared items green, uncleared pink
+
+;; ledger
+;; make cleared items green, uncleared pink
 (add-hook 'ledger-mode-hook 
           (lambda ()
             (highlight-lines-matching-regexp "^..\\(..\\)?/..?/..?[        ]+[^\\*]" (quote hi-pink))
@@ -57,15 +52,13 @@
     (forward-word)
     (forward-char)))
 
-(setq user-mail-address "vinod@kurup.com")
-
 (require 'org-install)
 (setq org-directory "~/Dropbox/org/")
 (setq org-default-notes-file (concat org-directory "todo.org"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map [f8] (lambda () (interactive) (org-capture nil "t")))
-                                        ;(define-key global-map [f9] 'remember-region)
+;;(define-key global-map [f9] 'remember-region)
 (setq org-log-done t)
 (setq org-agenda-show-log t)
 (setq org-return-follows-link t)
@@ -83,11 +76,6 @@
 (setq delete-old-versions t)
 ;; move to trash instead of Delete
 (setq delete-by-moving-to-trash t)
-
-;; set calendar's location (for sunrise sunset)
-(setq calendar-latitude 35.9162)
-(setq calendar-longitude -79.0999)
-(setq calendar-location-name "Chapel Hill, NC")
 
 (load-theme 'zenburn t)
 
@@ -126,22 +114,10 @@
 (require 'edit-server)
 (edit-server-start)
 
-                                        ; twitter modee
-                                        ; http://www.emacswiki.org/emacs/TwitteringMode
+;; twitter mode
+;; http://www.emacswiki.org/emacs/TwitteringMode
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
-
-;; auto-complete
-;; http://www.maybetechnology.com/2011/07/auto-complete-in-clojure.html
-                                        ;(require 'auto-complete-config)
-                                        ;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-                                        ;(ac-config-default)
-                                        ;(setq ac-delay 0.5) ;; eclipse uses 500ms
-
-;; configure auto complete to work in slime
-                                        ;(require 'ac-slime)
-                                        ;(add-hook 'slime-mode-hook 'set-up-slime-ac)
-                                        ;(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 ;; Missing from ruby-mode.el, see https://groups.google.com/group/emacs-on-rails/msg/565fba8263233c28
 (defun ruby-insert-end () 
@@ -156,11 +132,13 @@
             (require 'ruby-electric)
             (ruby-electric-mode t)))
 
-; autocomplete
-;(add-to-list 'load-path "~/.emacs.d/vinod/")
+;; autocomplete
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/vinod/ac-dict")
 (ac-config-default)
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -185,9 +163,11 @@
  '(org-velocity-search-method (quote phrase))
  '(temporary-file-directory (concat user-emacs-directory "tmp"))
  '(weblogger-config-alist (quote (("default" "http://www.blogger.com/api" "vvkurup@gmail.com" "" "6482582243742832795")))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-hide ((default (:foreground "grey25")) (nil nil))))
+

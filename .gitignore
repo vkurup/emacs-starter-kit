@@ -1,11 +1,8 @@
-loaddefs.el*
 backups/*
 auto-save-list
 *elc
 places
 url/cookies
-elpa-to-submit/jabber/jabber.info
-elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc
 thumbs/*
 oddmuse/*
 .newsrc-dribble
@@ -15,7 +12,6 @@ oddmuse/*
 .DS_Store
 image-dired/
 elim/
-elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc~
 session*
 tramp
 \#*
@@ -23,3 +19,5 @@ history
 tmp
 /.org-id-locations
 *~
+.smex-items
+ac-comphist.dat
