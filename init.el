@@ -9,7 +9,8 @@
 ;; Add in your own as you wish:
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings
                                   starter-kit-js starter-kit-ruby zenburn-theme
-                                  yasnippet-bundle ac-slime pony-mode)
+                                  yasnippet-bundle ac-slime pony-mode
+                                  markdown-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
