@@ -9,7 +9,7 @@
 ;; Add in your own as you wish:
 (defvar my-packages '(starter-kit starter-kit-lisp starter-kit-bindings
                                   starter-kit-js starter-kit-ruby zenburn-theme
-                                  yasnippet-bundle ac-slime)
+                                  yasnippet-bundle ac-slime pony-mode)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -24,6 +24,12 @@
 (setq calendar-location-name "Chapel Hill, NC")
 (setq-default kill-whole-line t)        ; ctrl-k kills whole line if at col 0
 (menu-bar-mode)
+
+;; make it a 100 columns wide at the right side of the screen
+(if (window-system)
+    (progn
+      (set-frame-size (selected-frame) 100 80)
+      (set-frame-position (selected-frame) -1 0)))
 
 ;; ledger
 ;; make cleared items green, uncleared pink
