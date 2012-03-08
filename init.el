@@ -28,7 +28,7 @@
 ;; make it a 100 columns wide at the right side of the screen
 (if (window-system)
     (progn
-      (set-frame-size (selected-frame) 100 80)
+      (set-frame-size (selected-frame) 80 27)
       (set-frame-position (selected-frame) -1 0)))
 
 ;; ledger
@@ -146,6 +146,23 @@
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 
+;; pony-mode
+(require 'pony-mode)
+
+;; pyflakes flymake integration
+;; http://stackoverflow.com/a/1257306/347942
+(when (load "flymake" t) 
+  (defun flymake-pyflakes-init () 
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy 
+                       'flymake-create-temp-inplace)) 
+           (local-file (file-relative-name 
+                        temp-file 
+                        (file-name-directory buffer-file-name)))) 
+      (list "pyflakes" (list local-file)))) 
+  (add-to-list 'flymake-allowed-file-name-masks 
+               '("\\.py\\'" flymake-pyflakes-init)))
+(add-hook 'python-mode-hook 'flymake-mode)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -167,6 +184,7 @@
  '(org-velocity-create-method (quote capture))
  '(org-velocity-max-depth 2)
  '(org-velocity-search-method (quote phrase))
+ '(pony-server-host "0.0.0.0")
  '(temporary-file-directory (concat user-emacs-directory "tmp"))
  '(weblogger-config-alist (quote (("default" "http://www.blogger.com/api" "vvkurup@gmail.com" "" "6482582243742832795")))))
 

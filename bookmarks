@@ -18,8 +18,8 @@
  (rear-context-string . "2-03 Fri 06:37]\n")
  (position . 919))
 ("org-capture-last-stored"
- (filename . "~/Dropbox/org/notes.org")
- (front-context-string . "* <2012-02-09 Th")
- (rear-context-string . "el\nmake relaxng\n")
- (position . 20644))
+ (filename . "~/org/notes.org")
+ (front-context-string . "* <2012-03-07 We")
+ (rear-context-string . "acs information\n")
+ (position . 31270))
 )
